@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    height: 100vh;
+    background: #111;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 1s ease;
+    overflow: hidden;
+  }
+  
+  /* cursor light */
+  .light {
+    position: fixed;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255,255,255,.25), transparent 60%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+  }
+  
+  body:hover .light {
+    animation: follow 0.1s linear infinite;
+  }
+  
+  @keyframes follow {
+    from {}
+  }
+  
+  /* title */
+  .title {
+    letter-spacing: 6px;
+    transition: all 1s ease;
+  }
+  .subtitle {
+    opacity: .6;
+    margin-bottom: 40px;
+    transition: opacity 1s ease;
+  }
+  
+  /* grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 160px);
+    gap: 25px;
+  }
+  
+  .box {
+    height: 160px;
+    border: 1px solid rgba(255,255,255,.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    transition: all 1s ease;
+    position: relative;
+  }
+  
+  .box span {
+    letter-spacing: 2px;
+  }
+  .box em {
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  .box:hover em {
+    opacity: 1;
+  }
+  
+  /* CALM */
+  body:has(.calm:hover) {
+    background: radial-gradient(circle, #2c5364, #0f2027);
+  }
+  body:has(.calm:hover) .title {
+    letter-spacing: 14px;
+  }
+  
+  /* CHAOS */
+  body:has(.chaos:hover) {
+    background: radial-gradient(circle, #5c0f17, #000);
+  }
+  body:has(.chaos:hover) .grid {
+    animation: shake .08s infinite;
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(0); }
+    50% { transform: translate(2px, -2px); }
+  }
+  
+ /* JOY – aesthetic */
+body:has(.joy:hover) {
+    background: radial-gradient(
+      circle,
+      #ffd1dc,
+      #f7b2ad,
+      #cdb4db
+    );
+  }
+  
+  body:has(.joy:hover) .box {
+    transform: translateY(-6px);
+  }
+  
+  body:has(.joy:hover) .title {
+    letter-spacing: 10px;
+  }
+  
+  
+  /* MIDNIGHT takeover */
+  body:has(.midnight:hover) {
+    background: radial-gradient(circle, #000428, #000);
+  }
+  body:has(.midnight:hover) .box:not(.midnight) {
+    opacity: .15;
+  }
+  
+  /* NOSTALGIA */
+  body:has(.nostalgia:hover) {
+    background: radial-gradient(circle, #e0b0a0, #6b4b3e);
+  }
+  body:has(.nostalgia:hover) .box {
+    filter: blur(.6px);
+  }
+  
+  /* LONELINESS */
+  body:has(.lonely:hover) {
+    background: radial-gradient(circle, #1a1a1a, #000);
+  }
+  body:has(.lonely:hover) .box {
+    transform: scale(.92);
+    opacity: .4;
+  }
+  
+  /* afterimage memory */
+  .box:hover {
+    box-shadow: 0 0 30px rgba(255,255,255,.25);
+  }
+  
+  /* VOID easter egg */
+  .void {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 10px;
+    opacity: .04;
+  }
+  .void:hover {
+    opacity: 1;
+    letter-spacing: 10px;
+  }
+  

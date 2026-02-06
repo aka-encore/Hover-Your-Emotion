@@ -3,23 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <title>Moods</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="light"></div>
 
-  <h1 class="title">Hover Your Emotion</h1>
-  <p class="subtitle">Some feelings linger.</p>
+  <h1 class="title">Hover an Emotion</h1>
+  <p class="subtitle">Feelings leave traces.</p>
 
   <div class="grid">
-    <div class="box calm"><span>CALM</span><em>Breathe in.</em></div>
-    <div class="box chaos"><span>CHAOS</span><em>Everything breaks.</em></div>
-    <div class="box joy"><span>JOY</span><em>Light expands.</em></div>
-    <div class="box midnight"><span>MIDNIGHT</span><em>Stay awhile.</em></div>
-    <div class="box nostalgia"><span>NOSTALGIA</span><em>Soft echoes remain.</em></div>
-    <div class="box lonely"><span>LONELINESS</span><em>Nothing answers.</em></div>
+    <div class="mood calm">
+      <div class="circle" data-emoji="😌"><span>CALM</span></div>
+      <em>Breathe in.</em>
+    </div>
+
+    <div class="mood chaos">
+      <div class="circle" data-emoji="😵‍💫"><span>CHAOS</span></div>
+      <em>Everything breaks.</em>
+    </div>
+
+    <div class="mood joy">
+      <div class="circle" data-emoji="😁"><span>JOY</span></div>
+      <em>Light expands.</em>
+    </div>
+
+    <div class="mood midnight">
+      <div class="circle" data-emoji="🌙"><span>MIDNIGHT</span></div>
+      <em>Stay awhile.</em>
+    </div>
+
+    <div class="mood nostalgia">
+      <div class="circle" data-emoji="🥀"><span>NOSTALGIA</span></div>
+      <em>Soft echoes remain.</em>
+    </div>
+
+    <div class="mood lonely">
+      <div class="circle" data-emoji="😔"><span>LONELINESS</span></div>
+      <em>Nothing answers.</em>
+    </div>
   </div>
 
   <div class="void">VOID</div>
+  <div class="signature">by Encore</div>
+
 </body>
 </html>

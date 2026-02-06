@@ -8,7 +8,7 @@
 body {
   height: 100vh;
   background: #111;
-  color: white;
+  color: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,10 +66,7 @@ body {
   border: 1px solid rgba(255,255,255,.2);
   position: relative;
   cursor: none;
-  transition:
-  transform 0.6s ease,
-  box-shadow 0.6s ease,
-  opacity 0.6s ease;
+  transition: all 0.8s ease;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -247,16 +244,4 @@ body:has(.lonely:hover) .lonely .circle {
 .signature:hover {
   opacity: 0.5;
 }
-.mood:not(:hover) .circle {
-  box-shadow: none;
-  transition-duration: 0.2s;
-}
-.light {
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,0.18),
-    transparent 60%
-  );
-}
-
 

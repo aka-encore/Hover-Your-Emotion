@@ -247,4 +247,16 @@ body:has(.lonely:hover) .lonely .circle {
 .signature:hover {
   opacity: 0.5;
 }
+.mood:not(:hover) .circle {
+  box-shadow: none;
+  transition-duration: 0.2s;
+}
+.light {
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.18),
+    transparent 60%
+  );
+}
+
 

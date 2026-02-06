@@ -1,164 +1,247 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  body {
-    height: 100vh;
-    background: #111;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: background 1s ease;
-    overflow: hidden;
-  }
-  
-  /* cursor light */
-  .light {
-    position: fixed;
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(255,255,255,.25), transparent 60%);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: screen;
-  }
-  
-  body:hover .light {
-    animation: follow 0.1s linear infinite;
-  }
-  
-  @keyframes follow {
-    from {}
-  }
-  
-  /* title */
-  .title {
-    letter-spacing: 6px;
-    transition: all 1s ease;
-  }
-  .subtitle {
-    opacity: .6;
-    margin-bottom: 40px;
-    transition: opacity 1s ease;
-  }
-  
-  /* grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 160px);
-    gap: 25px;
-  }
-  
-  .box {
-    height: 160px;
-    border: 1px solid rgba(255,255,255,.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: none;
-    transition: all 1s ease;
-    position: relative;
-  }
-  
-  .box span {
-    letter-spacing: 2px;
-  }
-  .box em {
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-  
-  .box:hover em {
-    opacity: 1;
-  }
-  
-  /* CALM */
-  body:has(.calm:hover) {
-    background: radial-gradient(circle, #2c5364, #0f2027);
-  }
-  body:has(.calm:hover) .title {
-    letter-spacing: 14px;
-  }
-  
-  /* CHAOS */
-  body:has(.chaos:hover) {
-    background: radial-gradient(circle, #5c0f17, #000);
-  }
-  body:has(.chaos:hover) .grid {
-    animation: shake .08s infinite;
-  }
-  
-  @keyframes shake {
-    0% { transform: translate(0); }
-    50% { transform: translate(2px, -2px); }
-  }
-  
- /* JOY – aesthetic */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+  height: 100vh;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  transition: background 1s ease;
+}
+
+/* ================= CURSOR LIGHT ================= */
+.light {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255,255,255,.25), transparent 60%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+/* ================= TITLE ================= */
+.title {
+  font-family: "Playfair Display", serif;
+  letter-spacing: 6px;
+  color: #f5f5f5;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  opacity: 0.6;
+  margin-bottom: 40px;
+  color: #9aa0a6;
+}
+
+/* ================= GRID ================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 40px;
+}
+
+/* ================= MOOD ================= */
+.mood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ================= CIRCLE ================= */
+.circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  position: relative;
+  cursor: none;
+  transition: all 0.8s ease;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* Emotion name */
+.circle span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-align: center;
+  transition: opacity 0.6s ease;
+}
+
+/* Emoji */
+.circle::before {
+  content: attr(data-emoji);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.6s ease;
+}
+
+/* Line text */
+.mood em {
+  font-size: 11px;
+  font-style: normal;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.6s ease;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ================= HOVER ================= */
+.mood:hover .circle::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mood:hover .circle span {
+  opacity: 0;
+}
+
+.mood:hover em {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mood:hover .circle {
+  box-shadow: 0 0 35px rgba(255,255,255,.25);
+}
+
+/* ================= TEXT COLORS ================= */
+.calm span { color: #9ad0c2; }
+.chaos span { color: #ff6b6b; }
+.joy span { color: #ffd166; }
+.midnight span { color: #8ecae6; }
+.nostalgia span { color: #e0a899; }
+.lonely span { color: #adb5bd; }
+
+/* ================= BACKGROUNDS ================= */
+body:has(.calm:hover) {
+  background: radial-gradient(circle, #2c5364, #0f2027);
+}
+
+body:has(.chaos:hover) {
+  background: radial-gradient(circle, #5c0f17, #000);
+}
+
 body:has(.joy:hover) {
-    background: radial-gradient(
-      circle,
-      #ffd1dc,
-      #f7b2ad,
-      #cdb4db
-    );
-  }
-  
-  body:has(.joy:hover) .box {
-    transform: translateY(-6px);
-  }
-  
-  body:has(.joy:hover) .title {
-    letter-spacing: 10px;
-  }
-  
-  
-  /* MIDNIGHT takeover */
-  body:has(.midnight:hover) {
-    background: radial-gradient(circle, #000428, #000);
-  }
-  body:has(.midnight:hover) .box:not(.midnight) {
-    opacity: .15;
-  }
-  
-  /* NOSTALGIA */
-  body:has(.nostalgia:hover) {
-    background: radial-gradient(circle, #e0b0a0, #6b4b3e);
-  }
-  body:has(.nostalgia:hover) .box {
-    filter: blur(.6px);
-  }
-  
-  /* LONELINESS */
-  body:has(.lonely:hover) {
-    background: radial-gradient(circle, #1a1a1a, #000);
-  }
-  body:has(.lonely:hover) .box {
-    transform: scale(.92);
-    opacity: .4;
-  }
-  
-  /* afterimage memory */
-  .box:hover {
-    box-shadow: 0 0 30px rgba(255,255,255,.25);
-  }
-  
-  /* VOID easter egg */
-  .void {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    font-size: 10px;
-    opacity: .04;
-  }
-  .void:hover {
-    opacity: 1;
-    letter-spacing: 10px;
-  }
-  
+  background: radial-gradient(circle, #ffd1dc, #f7b2ad, #cdb4db);
+}
+
+body:has(.midnight:hover) {
+  background: radial-gradient(circle, #000428, #000);
+}
+
+body:has(.nostalgia:hover) {
+  background: radial-gradient(circle, #e0b0a0, #6b4b3e);
+}
+
+body:has(.lonely:hover) {
+  background: radial-gradient(circle, #1a1a1a, #000);
+}
+
+/* ================= VISUAL SOUND EFFECTS ================= */
+
+/* CALM – breathing */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+body:has(.calm:hover) .calm .circle {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* CHAOS – vibration */
+@keyframes chaos-shake {
+  0% { transform: translate(0); }
+  25% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, 2px); }
+}
+body:has(.chaos:hover) .chaos .circle {
+  animation: chaos-shake 0.08s infinite;
+  filter: blur(0.6px);
+}
+
+/* JOY – glow ripple */
+@keyframes joy-glow {
+  0% { box-shadow: 0 0 0 rgba(255,209,102,0); }
+  50% { box-shadow: 0 0 35px rgba(255,209,102,.6); }
+  100% { box-shadow: 0 0 0 rgba(255,209,102,0); }
+}
+body:has(.joy:hover) .joy .circle {
+  animation: joy-glow 2.2s ease-in-out infinite;
+}
+
+/* MIDNIGHT – gravity */
+body:has(.midnight:hover) .midnight .circle {
+  transform: scale(0.96);
+  box-shadow: 0 20px 60px rgba(0,0,0,.8);
+}
+
+/* NOSTALGIA – memory fade */
+@keyframes nostalgia-fade {
+  0%, 100% { filter: blur(.4px) brightness(1); }
+  50% { filter: blur(1.2px) brightness(.9); }
+}
+body:has(.nostalgia:hover) .nostalgia .circle {
+  animation: nostalgia-fade 3.5s ease-in-out infinite;
+}
+
+/* LONELINESS – echo */
+body:has(.lonely:hover) .lonely .circle {
+  transform: scale(.9);
+  opacity: .5;
+}
+
+/* ================= VOID ================= */
+.void {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  opacity: 0.04;
+  letter-spacing: 2px;
+  transition: all 1s ease;
+}
+
+.void:hover {
+  opacity: 1;
+  letter-spacing: 12px;
+}
+.signature {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.08;
+  transition: opacity 0.6s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.signature:hover {
+  opacity: 0.5;
+}
+

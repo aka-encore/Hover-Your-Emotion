@@ -3,52 +3,404 @@
 <head>
   <meta charset="UTF-8" />
   <title>Moods</title>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <link rel="stylesheet" href="style.css" />
+    body {
+      height: 100vh;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      overflow: hidden;
+      transition: background 1s ease;
+    }
+
+    /* ================= TITLE ================= */
+    .title {
+      font-family: "Playfair Display", serif;
+      letter-spacing: 6px;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .subtitle {
+      opacity: 0.6;
+      margin-bottom: 40px;
+      color: #9aa0a6;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ================= GRID ================= */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 160px);
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(2, 140px);
+        gap: 24px;
+      }
+    }
+
+    /* ================= MOOD ================= */
+    .mood {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      isolation: isolate;
+      cursor: pointer;
+    }
+
+    /* ================= CIRCLE ================= */
+    .circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      transition: none;
+      transform: translateZ(0);
+    }
+
+    .circle span {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      letter-spacing: 3px;
+      opacity: 1;
+      transition: none;
+    }
+
+    /* Emoji container */
+    .circle .emoji {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 64px;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: none;
+    }
+
+    /* ================= LINE ================= */
+    .mood em {
+      font-size: 11px;
+      font-style: normal;
+      opacity: 0;
+      color: rgba(255,255,255,0.6);
+      transition: none;
+    }
+
+    /* ================= HOVER (transitions only on enter) ================= */
+    .mood:hover .circle {
+      transition: transform 0.5s ease;
+    }
+
+    .mood:hover .circle .emoji {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .mood:hover .circle span {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .mood:hover em {
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    /* ================= TEXT COLORS ================= */
+    .calm span { color: #9ad0c2; }
+    .chaos span { color: #ff6b6b; }
+    .joy span { color: #ffd166; }
+    .midnight span { color: #8ecae6; }
+    .nostalgia span { color: #e0a899; }
+    .lonely span { color: #adb5bd; }
+
+    /* ================= BACKGROUNDS ================= */
+    body:has(.calm:hover) {
+      background: radial-gradient(circle, #2c5364, #0f2027);
+    }
+
+    body:has(.chaos:hover) {
+      background: radial-gradient(circle, #5c0f17, #000);
+    }
+
+    body:has(.joy:hover) {
+      background: radial-gradient(circle, #ffd1dc, #f7b2ad, #cdb4db);
+    }
+
+    body:has(.midnight:hover) {
+      background: radial-gradient(circle, #000428, #000);
+    }
+
+    body:has(.nostalgia:hover) {
+      background: radial-gradient(circle, #e0b0a0, #6b4b3e);
+    }
+
+    body:has(.lonely:hover) {
+      background: radial-gradient(circle, #1a1a1a, #000);
+    }
+
+    /* ================= ANIMATIONS ================= */
+    
+    /* CALM - Breathing */
+    @keyframes breathe {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    body:has(.calm:hover) .calm .circle {
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    /* CHAOS - Shake */
+    @keyframes shake {
+      0% { transform: translate(0); }
+      25% { transform: translate(2px,-2px); }
+      50% { transform: translate(-2px,2px); }
+    }
+    body:has(.chaos:hover) .chaos .circle {
+      animation: shake .08s infinite;
+    }
+
+    /* JOY - Glow pulse */
+    @keyframes glow {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    body:has(.joy:hover) .joy .circle {
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    /* MIDNIGHT - Shrink */
+    body:has(.midnight:hover) .midnight .circle {
+      transform: scale(.96);
+    }
+
+    /* NOSTALGIA - Blur fade */
+    @keyframes blurFade {
+      0%,100% { filter: blur(0); }
+      50% { filter: blur(1px); }
+    }
+    body:has(.nostalgia:hover) .nostalgia .circle {
+      animation: blurFade 3.5s ease-in-out infinite;
+    }
+
+    /* LONELINESS - Fade and shrink */
+    body:has(.lonely:hover) .lonely .circle {
+      transform: scale(.9);
+      opacity: .5;
+    }
+
+    /* ================= VOID ================= */
+    .void {
+      position: fixed;
+      bottom: 50px;
+      font-size: 10px;
+      letter-spacing: 8px;
+      opacity: 0.15;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      z-index: 10;
+    }
+
+    .void:hover {
+      opacity: 0.6;
+      letter-spacing: 12px;
+    }
+
+    /* ================= SIGNATURE ================= */
+    .signature {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 2px;
+      opacity: 0.08;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .signature:hover {
+      opacity: 0.5;
+    }
+
+    /* ================= GLOW EFFECTS ON HOVER ================= */
+    .mood:hover .circle {
+      box-shadow: 0 0 40px rgba(255,255,255,0.1);
+    }
+
+    .calm:hover .circle {
+      box-shadow: 0 0 60px rgba(154,208,194,0.4);
+    }
+
+    .chaos:hover .circle {
+      box-shadow: 0 0 60px rgba(255,107,107,0.5);
+    }
+
+    .joy:hover .circle {
+      box-shadow: 0 0 80px rgba(255,209,102,0.5);
+    }
+
+    .midnight:hover .circle {
+      box-shadow: 0 0 50px rgba(142,202,230,0.3);
+    }
+
+    .nostalgia:hover .circle {
+      box-shadow: 0 0 50px rgba(224,168,153,0.4);
+    }
+
+    .lonely:hover .circle {
+      box-shadow: 0 0 30px rgba(173,181,189,0.2);
+    }
+
+    /* ================= AMBIENT FLOATING DOTS (CSS only) ================= */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ambient span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+
+    .ambient span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 25s; }
+    .ambient span:nth-child(2) { left: 20%; top: 80%; animation-delay: -5s; animation-duration: 20s; }
+    .ambient span:nth-child(3) { left: 35%; top: 50%; animation-delay: -10s; animation-duration: 28s; }
+    .ambient span:nth-child(4) { left: 50%; top: 30%; animation-delay: -3s; animation-duration: 22s; }
+    .ambient span:nth-child(5) { left: 65%; top: 70%; animation-delay: -8s; animation-duration: 26s; }
+    .ambient span:nth-child(6) { left: 80%; top: 40%; animation-delay: -12s; animation-duration: 24s; }
+    .ambient span:nth-child(7) { left: 90%; top: 60%; animation-delay: -2s; animation-duration: 30s; }
+    .ambient span:nth-child(8) { left: 5%; top: 90%; animation-delay: -7s; animation-duration: 18s; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.3;
+      }
+      90% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    /* Color ambient dots on mood hover */
+    body:has(.calm:hover) .ambient span { background: rgba(154,208,194,0.3); }
+    body:has(.chaos:hover) .ambient span { background: rgba(255,107,107,0.4); animation-duration: 3s !important; }
+    body:has(.joy:hover) .ambient span { background: rgba(255,209,102,0.4); }
+    body:has(.midnight:hover) .ambient span { background: rgba(142,202,230,0.2); }
+    body:has(.nostalgia:hover) .ambient span { background: rgba(224,168,153,0.3); }
+    body:has(.lonely:hover) .ambient span { background: rgba(173,181,189,0.15); }
+  </style>
 </head>
 <body>
-  <div class="light"></div>
+  <!-- Ambient floating dots -->
+  <div class="ambient">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <h1 class="title">Hover an Emotion</h1>
   <p class="subtitle">Feelings leave traces.</p>
 
   <div class="grid">
     <div class="mood calm">
-      <div class="circle" data-emoji="😌"><span>CALM</span></div>
+      <div class="circle">
+        <span>CALM</span>
+        <div class="emoji">😌</div>
+      </div>
       <em>Breathe in.</em>
     </div>
 
     <div class="mood chaos">
-      <div class="circle" data-emoji="😵‍💫"><span>CHAOS</span></div>
+      <div class="circle">
+        <span>CHAOS</span>
+        <div class="emoji">🤯</div>
+      </div>
       <em>Everything breaks.</em>
     </div>
 
     <div class="mood joy">
-      <div class="circle" data-emoji="😁"><span>JOY</span></div>
+      <div class="circle">
+        <span>JOY</span>
+        <div class="emoji">😄</div>
+      </div>
       <em>Light expands.</em>
     </div>
 
     <div class="mood midnight">
-      <div class="circle" data-emoji="🌙"><span>MIDNIGHT</span></div>
+      <div class="circle">
+        <span>MIDNIGHT</span>
+        <div class="emoji">🌙</div>
+      </div>
       <em>Stay awhile.</em>
     </div>
 
     <div class="mood nostalgia">
-      <div class="circle" data-emoji="🥀"><span>NOSTALGIA</span></div>
+      <div class="circle">
+        <span>NOSTALGIA</span>
+        <div class="emoji">🥀</div>
+      </div>
       <em>Soft echoes remain.</em>
     </div>
 
     <div class="mood lonely">
-      <div class="circle" data-emoji="😔"><span>LONELINESS</span></div>
+      <div class="circle">
+        <span>LONELINESS</span>
+        <div class="emoji">😔</div>
+      </div>
       <em>Nothing answers.</em>
     </div>
   </div>
 
   <div class="void">VOID</div>
   <div class="signature">by Encore</div>
-
 </body>
 </html>
